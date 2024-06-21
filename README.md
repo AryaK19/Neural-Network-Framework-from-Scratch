@@ -1,8 +1,8 @@
 # Neural-Network-Framework-from-Scratch
  A framework for building neural networks and to get a grasp on how large frameworks like Pytorch and Tensorflow work.
-Getting Started
-To get started with NeuroFlow, follow these steps:
 
+# Getting Started
+To get started with NeuroFlow, follow these steps:
 1.Copy the NeuroFlow.py file into your project directory.
 2.Import the Sequential class from NeuroFlow: from NeuroFlow import Sequential.
 
