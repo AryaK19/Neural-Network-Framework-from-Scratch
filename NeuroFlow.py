@@ -105,7 +105,7 @@ class Sequential:
             pickle.dump(self, f, pickle.HIGHEST_PROTOCOL)
 
 
-def load_model(filename):
+def loadModel(filename):
     with open(filename,'rb') as f:
         file = pickle.load(f)
 
