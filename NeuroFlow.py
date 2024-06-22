@@ -10,7 +10,7 @@ class Sequential:
         self.layers = 0
         self.activations = [outputLayerActivation]
 
-    def addLayerDense(self,size,activation='relu'):
+    def addLayer(self,size,activation='relu'):
         self.layers +=1
         self.weights.append(np.random.randn(size, self.weights[-1].shape[1]) * np.sqrt(2. / size))
         self.weights[-2] = np.random.randn(self.weights[-2].shape[0], self.weights[-1].shape[0]) * np.sqrt(2. / self.weights[-1].shape[0])

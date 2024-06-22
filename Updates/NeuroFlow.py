@@ -20,7 +20,7 @@ class Sequential:
         self.compiled = True
       
 
-    def addLayer(self,size,activation='relu'):
+    def addLayerDense(self,size,activation='relu'):
         if self.layers ==0:
             self.inputSize = size
             self.layers +=1
