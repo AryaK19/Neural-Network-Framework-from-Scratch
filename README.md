@@ -5,7 +5,9 @@
 To get started with NeuroFlow, follow these steps:
 1.Copy the NeuroFlow.py file into your project directory.
 2.Import the Sequential class from NeuroFlow: from NeuroFlow import Sequential.
-
+\n
+(Before you start with this framework I highly recommend to have a look in 'NN.ipynb' which is a same model, but has only one hidden layer hard coded. This will help you better grasp the code in the actual model)
+\n
 You can now initialize the model (prefer the two examples in 'MNIST.ipynb' or 'DIABETES.ipynb'. Where I have implemented an neural network for image data and simple data.
 
 While initializing the model 2 attributes are necessary i.e. input size and output size, after which you can add Dense layers in the network with a specified number as per the example
