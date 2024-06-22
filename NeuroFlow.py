@@ -91,7 +91,7 @@ class Sequential:
             
         return np.array(loss)
     
-    def printSummary(self):
+    def summary(self):
         print("")
         print("=================")
         print("| Model Summary |")
@@ -127,3 +127,4 @@ def loadModel(filename):
 
         return file
     
+
