@@ -19,3 +19,9 @@ For the fit method in Sequential, verboseInterval defines how frequently the los
 Finally, you can save the model by save method and load the model from NeuroFlow.loadModel() or simply - from NeuroFlow import loadModel
 
 Thanks and keep learning !!
+
+
+
+#   
+Still working on it (adding more features and layers)!
+#  
