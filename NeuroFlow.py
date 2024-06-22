@@ -21,7 +21,6 @@ class Sequential:
         self.activations.insert(-2,activation)
 
     
-
     def sigmoid(self, x):
         return 1 / (1 + np.exp(-x))
     
@@ -45,7 +44,6 @@ class Sequential:
         return loss
 
 
-
     def predict(self, X):
         self.output = [X]
        
@@ -66,7 +64,6 @@ class Sequential:
             dz = [np.dot(dz[0], self.weights[i].T) * eval(f"self.{self.activations[i-1]}_derivative(self.output[i])")] + dz
             dw = [(1 / m) * np.dot(self.output[i-1].T, dz[0])] + dw
             db = [(1 / m) * np.sum(dz[0], axis=0, keepdims=True)] + db
-            
 
         for i in range(self.layers+1):
             
@@ -74,13 +71,10 @@ class Sequential:
             self.bias[i] -= learningRate * db[i]
             
 
-
     def fit(self,X,y,epochs,learningRate=0.01,verbose=True,verboseInterval=100):
         loss = []
     
         for epoch in range(epochs):
-           
-
             pred = self.predict(X)
             self.backward(X, y,learningRate)
 
@@ -92,13 +86,35 @@ class Sequential:
             if epoch%verboseInterval == 0 and verbose:
                 print(f"|   Loss: {loss[-1]}")
 
-
         if verbose:
             print("\nTraining Complete")
-
             
         return np.array(loss)
     
+    def printSummary(self):
+        print("")
+        print("=================")
+        print("| Model Summary |")
+        print("=================")
+        totalParams = 0
+        for i, (w, b, activation) in enumerate(zip(self.weights, self.bias, self.activations)):
+            layer_num = i + 1
+            inputDim = w.shape[0]
+            ouputDim = w.shape[1]
+            layerParams = w.size + b.size
+            print("")
+            print("------------------------------------------------------------")
+            print(f"Layer {layer_num}:")
+            print("------------------------------------------------------------")
+            print(f"  Input Dim: {inputDim}\t\t\t|\tOutput Dim: {ouputDim}")
+            print(f"  Weights Shape: {w.shape}\t\t|\tBiases Shape: {b.shape}") 
+            print(f"  Activation: {activation}")
+            print(f"  Number of parameters: {layerParams}")
+            print("=============================================================")
+            totalParams += layerParams
+        print(f"|                Total number of parameters: {totalParams}             |")
+        print("=============================================================")
+
 
     def save(self,filename):
         with open(filename, "wb") as f:
@@ -110,5 +126,4 @@ def loadModel(filename):
         file = pickle.load(f)
 
         return file
-
-          
+    
