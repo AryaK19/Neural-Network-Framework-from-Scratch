@@ -3,7 +3,9 @@
 
 # Getting Started
 To get started with NeuroFlow, follow these steps:
+
 1.Copy the NeuroFlow.py file into your project directory.
+
 2.Import the Sequential class from NeuroFlow: from NeuroFlow import Sequential.
 #  
 (Before you start with this framework I highly recommend to have a look in 'NN.ipynb' which is a same model, but has only one hidden layer hard coded. This will help you better grasp the code in the actual model)
