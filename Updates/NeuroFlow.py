@@ -4,13 +4,13 @@ import pickle
 
 class Sequential:
     def __init__(self):
-        self.weights = []
-        self.bias = []
-        self.layers = 0
-        self.activations = []
-        self.compiled = False
-        self.inputSize = None
-        self.outputSize = None
+        self.weights        = []
+        self.bias           = []
+        self.layers         = 0
+        self.activations    = []
+        self.compiled       = False
+        self.inputSize      = None
+        self.outputSize     = None
 
     def compile(self):
         if self.layers < 2:
@@ -73,7 +73,7 @@ class Sequential:
             
         return self.output[-1]
     
-    def backward(self, X, y, learningRate=0.01):
+    def backward(self, X, y, learningRate):
         m = X.shape[0]
 
         dz = [self.output[-1] - y]
@@ -93,23 +93,62 @@ class Sequential:
             
 
 
-    def fit(self,X,y,epochs,learningRate=0.01,verbose=True,verboseInterval=100):
-        if not self.compile:
+    def fit(self,X,y,epochs,batchSize=32,learningRate=0.01,verbose=True):
+        """
+        Train the neural network on the given data using mini-batch gradient descent.
+
+        Parameters:
+        X : numpy.ndarray
+            The input data, a matrix where each column is an input example.
+        y : numpy.ndarray
+            The target data, a matrix where each column is the target for an input example.
+        epochs : int
+            The number of times to iterate over the training data.
+        batchSize : int, optional
+            The number of samples in each batch (default is 32).
+        learningRate : float, optional
+            The step size for weight updates during training (default is 0.01).
+        verbose : bool, optional
+            Whether to print progress updates during training (default is True).
+        verboseInterval : int, optional
+            The number of epochs between progress updates (default is 100).
+
+        Returns:
+        numpy.ndarray
+            Array of loss values recorded at each `verboseInterval`.
+        """
+        if not self.compiled:
             print("Compile the Model First")
             return 
 
         loss = []
-    
+        m = X.shape[0]
+
         for epoch in range(epochs):
-            pred = self.predict(X)
-            self.backward(X, y,learningRate)
+            if verbose:
+                print(f"\nEpoch: {epoch}\n|", end='')
+                print("=============", end='')
+         
+            indices = np.arange(m)
+            np.random.shuffle(indices)
+            X = X[indices]
+            y = y[indices]
+         
+            for i in range(0, m, batchSize):
+                
+                X_batch = X[i: i + batchSize]
+                y_batch = y[i: i + batchSize]
 
-            if epoch%verboseInterval == 0 and verbose:
-                print(f"\nEpoch: {epoch}\n|",end='')
-                print("====================",end='')
-                loss.append(self.computeLoss(y,pred))
+                pred = self.predict(X_batch)
+                self.backward(X_batch, y_batch, learningRate)
 
-            if epoch%verboseInterval == 0 and verbose:
+
+
+            pred = self.predict(X)  
+            current_loss = self.computeLoss(y, pred)
+            loss.append(current_loss)
+            if verbose:
+                print("=============", end='')
                 print(f"|   Loss: {loss[-1]}")
 
         if verbose:
