@@ -127,13 +127,14 @@ class Sequential:
         for epoch in range(epochs):
             if verbose:
                 print(f"\nEpoch: {epoch}\n|", end='')
-                print("=============", end='')
+                print("====", end='')
          
             indices = np.arange(m)
             np.random.shuffle(indices)
             X = X[indices]
             y = y[indices]
-         
+            
+            # print(m,m/batchSize)
             for i in range(0, m, batchSize):
                 
                 X_batch = X[i: i + batchSize]
@@ -141,6 +142,9 @@ class Sequential:
 
                 pred = self.predict(X_batch)
                 self.backward(X_batch, y_batch, learningRate)
+                
+                if verbose and not int(i/batchSize)%(int((m/batchSize)/32)):
+                    print('=',end='')
 
 
 
@@ -148,7 +152,7 @@ class Sequential:
             current_loss = self.computeLoss(y, pred)
             loss.append(current_loss)
             if verbose:
-                print("=============", end='')
+                print("=======", end='')
                 print(f"|   Loss: {loss[-1]}")
 
         if verbose:
